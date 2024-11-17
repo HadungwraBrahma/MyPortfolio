@@ -1,0 +1,19 @@
+.footer{
+    margin: 50px 170px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    font-size: 18px;
+    margin-bottom: 50px;
+}
+
+.footer p{
+    margin-bottom: 50px;
+    align-self: center;
+}
+
+@media(max-width:768px){
+    .footer{
+        margin: 10px 70px;
+    }
+}
