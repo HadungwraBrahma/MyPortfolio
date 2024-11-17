@@ -5,7 +5,7 @@ const mywork_data = [
     w_no: 1,
     w_name: "Socialspace",
     w_img: project_socialspace,
-    w_url: "https://socialspace-client.onrender.com"
+    w_url: "https://socialspace-orpin.vercel.app"
   },
 ];
 
