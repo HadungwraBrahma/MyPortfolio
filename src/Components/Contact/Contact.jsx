@@ -3,28 +3,42 @@ import mail_icon from "../../assets/mail_icon.svg";
 import location_icon from "../../assets/location_icon.svg";
 import call_icon from "../../assets/call_icon.svg";
 import linkedin_icon from "../../assets/linkedin_icon.png";
+import { toast } from "sonner";
+import { useState } from "react";
 
 const Contact = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const onSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
+    setIsSubmitting(true);
 
+    const formData = new FormData(event.target);
     formData.append("access_key", import.meta.env.VITE_REACT_ACCESS_KEY);
 
     const object = Object.fromEntries(formData);
     const json = JSON.stringify(object);
 
-    const res = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: json,
-    }).then((res) => res.json());
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: json,
+      }).then((res) => res.json());
 
-    if (res.success) {
-      alert(res.message);
+      if (res.success) {
+        toast.success(res.message || "Form submitted successfully!");
+        event.target.reset();
+      } else {
+        toast.error(res.message || "Something went wrong!");
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -45,7 +59,8 @@ const Contact = () => {
           </p>
           <div className="contact-details">
             <div className="contact-detail">
-              <img src={mail_icon} alt="mail_icon" /> <p>hadungwrabrahma2@gmail.com</p>
+              <img src={mail_icon} alt="mail_icon" />{" "}
+              <p>hadungwrabrahma2@gmail.com</p>
             </div>
             <div className="contact-detail">
               <img src={call_icon} alt="call_icon" /> <p>+91-88119-75497</p>
@@ -56,13 +71,15 @@ const Contact = () => {
                 <a
                   href="https://www.linkedin.com/in/hadungwra-brahma"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   linkedin.com/in/hadungwra-brahma
                 </a>
               </p>
             </div>
             <div className="contact-detail">
-              <img src={location_icon} alt="location_icon" /> <p>Kokrajhar, Assam, India</p>
+              <img src={location_icon} alt="location_icon" />{" "}
+              <p>Kokrajhar, Assam, India</p>
             </div>
           </div>
         </div>
@@ -83,16 +100,20 @@ const Contact = () => {
             placeholder="Enter your email"
             name="email"
           />
-          <label htmlFor="message">Write your messege here</label>
+          <label htmlFor="message">Write your message here</label>
           <textarea
             id="message"
             name="message"
             required
             rows="8"
-            placeholder="Enter your messege"
+            placeholder="Enter your message"
           ></textarea>
-          <button className="contact-submit" type="submit">
-            Submit now
+          <button
+            className="contact-submit"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Submitting..." : "Submit"}
           </button>
         </form>
       </div>
