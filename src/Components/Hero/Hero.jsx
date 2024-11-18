@@ -27,7 +27,7 @@ const Hero = () => {
         </div>
         <div className="hero-resume">
           <a
-            href="https://drive.google.com/file/d/1nXij_lQFq2upXtga5FBHUrqffpXHrRYB/view?usp=sharing"
+            href="https://drive.google.com/file/d/1AsdEj2D_XdSiSlitFQ5-YRqahXuIRMGq/view?usp=sharing"
             className="download-link"
             target="_blank"
           >
