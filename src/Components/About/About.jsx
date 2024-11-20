@@ -1,5 +1,4 @@
 import "./About.css";
-import MeWithDog from "../../assets/MeWithDog.jpg";
 import mySkills from "../../assets/my_skills_data";
 
 const About = () => {
@@ -9,9 +8,6 @@ const About = () => {
         <h1>About me</h1>
       </div>
       <div className="about-sections">
-        <div className="about-left">
-          <img src={MeWithDog} alt="MeWithDog" />
-        </div>
         <div className="about-right">
           <div className="about-para">
             <p>
